@@ -1,0 +1,6 @@
+# IDE ve Editör Dosyaları
+.idea/
+.vscode/
+
+# Kendi kişisel ayarlarımızı ve şifremizi içeren dosyayı yok say
+config.local.php

@@ -13,23 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!--
-        yazıların rengi siyah, düzeltemediğimiz için
-        hmtl içinde ezdik
-    -->
-    <style>
-        footer.bg-dark.text-white {
-            color: white !important;
-        }
-
-        footer.bg-dark.text-white h5,
-        footer.bg-dark.text-white p,
-        footer.bg-dark.text-white li,
-        footer.bg-dark.text-white i {
-            color: white !important;
-        }
-    </style>
-
 
     <style>
         :root {
@@ -195,6 +178,23 @@
             line-height: 20px;
         }
     </style>
+
+    <!--
+        yazıların rengi siyah, düzeltemediğimiz için
+        hmtl içinde ezdik
+    -->
+    <style>
+        footer.bg-dark.text-white {
+            color: white !important;
+        }
+
+        footer.bg-dark.text-white h5,
+        footer.bg-dark.text-white p,
+        footer.bg-dark.text-white li,
+        footer.bg-dark.text-white i {
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -211,7 +211,7 @@
                     <li class="nav-item"><a class="nav-link" href="#menu">Menü</a></li>
                     <li class="nav-item"><a class="nav-link" href="#hakkimizda">Hakkımızda</a></li>
                     <li class="nav-item ms-3">
-                        <a href="#" class="btn btn-outline-light rounded-pill px-4">Giriş Yap</a>
+                        <a href="login.php" class="btn btn-outline-light rounded-pill px-4">Giriş Yap</a>
                     </li>
                 </ul>
             </div>
@@ -413,4 +413,4 @@
     </script>
 </body>
 
-</html>s
+</html>
