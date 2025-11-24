@@ -3,7 +3,7 @@
         <div class="row text-md-left">
             <!-- Marka Bilgisi -->
             <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 font-weight-bold">Lusso Coffee</h5>
+                <h5 class="text-uppercase mb-4 font-weight-bold">OrderFlow</h5>
                 <p>
                     Kahve tutkusunu sanata dönüştürdüğümüz mekanımıza hoş geldiniz. 
                     En iyi çekirdekler, en iyi anlar için.
@@ -31,7 +31,7 @@
 
         <div class="row align-items-center">
             <div class="col-md-12 text-center">
-                <p class="mb-0">&copy; 2025 Lusso Coffee House. Laravel Project Design.</p>
+                <p class="mb-0">&copy; 2025 OrderFlow. Laravel Project Design.</p>
             </div>
         </div>
     </div>

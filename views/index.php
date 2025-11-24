@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusso Coffee - Sipariş Sistemi</title>
+    <title>OrderFlow - Sipariş Sistemi</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
@@ -14,209 +14,16 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        :root {
-            --primary-color: #6F4E37;
-            /* Kahve */
-            --secondary-color: #C6A87C;
-            /* Krem/Altın */
-            --dark-bg: #1a1a1a;
-            --light-bg: #f9f9f9;
-        }
+    <link rel="stylesheet" href="../public/css/style_index.css">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-bg);
-            color: #333;
-        }
-
-        h1,
-        h2,
-        h3,
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Navbar Tasarımı */
-        .navbar {
-            transition: all 0.4s;
-            padding: 15px 0;
-        }
-
-        .navbar.scrolled {
-            background-color: rgba(26, 26, 26, 0.95);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 10px 0;
-        }
-
-        .nav-link {
-            color: white !important;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: width .3s;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
-
-        /* Ürün Kartları */
-        .product-card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-img-wrapper {
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .card-img-top {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .product-card:hover .card-img-top {
-            transform: scale(1.1);
-        }
-
-        .price-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--secondary-color);
-            color: #fff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        /* Butonlar */
-        .btn-custom {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 30px;
-            padding: 10px 25px;
-            border: none;
-            transition: all 0.3s;
-        }
-
-        .btn-custom:hover {
-            background-color: #5a3e2b;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* Floating Cart Button */
-        .fab-cart {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--secondary-color);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 60px;
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 1000;
-            transition: transform 0.3s;
-        }
-
-        .fab-cart:hover {
-            transform: rotate(10deg) scale(1.1);
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: red;
-            color: white;
-            font-size: 12px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            line-height: 20px;
-        }
-    </style>
-
-    <!--
-        yazıların rengi siyah, düzeltemediğimiz için
-        hmtl içinde ezdik
-    -->
-    <style>
-        footer.bg-dark.text-white {
-            color: white !important;
-        }
-
-        footer.bg-dark.text-white h5,
-        footer.bg-dark.text-white p,
-        footer.bg-dark.text-white li,
-        footer.bg-dark.text-white i {
-            color: white !important;
-        }
-    </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fs-3" href="#"><i class="fas fa-coffee me-2"></i>Lusso Coffee</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Anasayfa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#menu">Menü</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#hakkimizda">Hakkımızda</a></li>
-                    <li class="nav-item ms-3">
-                        <a href="login.php" class="btn btn-outline-light rounded-pill px-4">Giriş Yap</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php 
+    // Header dosyasını buraya dahil ediyoruz
+    include 'header_template.php'; 
+    ?>
 
     <header class="hero">
         <div class="container">
@@ -226,123 +33,9 @@
         </div>
     </header>
 
-    <section id="menu" class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h5 class="text-uppercase text-muted ls-2">Keşfet</h5>
-                <h2 class="display-5 fw-bold" style="color: var(--primary-color);">Özel Menümüz</h2>
-                <div style="width: 60px; height: 3px; background: var(--secondary-color); margin: 20px auto;"></div>
-            </div>
+    <?php include '../app/controllers/products_get.php'  ?>
 
-            <div class="text-center mb-5">
-                <button class="btn btn-outline-dark rounded-pill px-4 me-2 active filter-btn"
-                    data-filter="all">Tümü</button>
-                <button class="btn btn-outline-dark rounded-pill px-4 me-2 filter-btn"
-                    data-filter="sicak">Sıcaklar</button>
-                <button class="btn btn-outline-dark rounded-pill px-4 me-2 filter-btn"
-                    data-filter="soguk">Soğuklar</button>
-                <button class="btn btn-outline-dark rounded-pill px-4 filter-btn" data-filter="tatli">Tatlılar</button>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3 product-item" data-category="sicak">
-                    <div class="product-card h-100">
-                        <div class="card-img-wrapper">
-                            <span class="price-tag">65 ₺</span>
-                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Latte">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Caramel Latte</h5>
-                            <p class="card-text text-muted small">Espresso, buharlanmış süt ve karamel sosu.</p>
-                            <button class="btn btn-custom btn-sm w-100 add-to-cart" data-name="Caramel Latte">
-                                <i class="fas fa-plus me-1"></i> Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3 product-item" data-category="tatli">
-                    <div class="product-card h-100">
-                        <div class="card-img-wrapper">
-                            <span class="price-tag">120 ₺</span>
-                            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Cheesecake">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">San Sebastian</h5>
-                            <p class="card-text text-muted small">Belçika çikolatalı sos eşliğinde.</p>
-                            <button class="btn btn-custom btn-sm w-100 add-to-cart" data-name="San Sebastian">
-                                <i class="fas fa-plus me-1"></i> Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3 product-item" data-category="soguk">
-                    <div class="product-card h-100">
-                        <div class="card-img-wrapper">
-                            <span class="price-tag">75 ₺</span>
-                            <img src="https://cdn.shopify.com/s/files/1/0569/3987/2340/files/evde-cold-brew_480x480.webp?v=1718216553"
-                                class="card-img-top" alt="Cold Brew">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Cold Brew</h5>
-                            <p class="card-text text-muted small">12 saat demlenmiş yoğun kahve tadı.</p>
-                            <button class="btn btn-custom btn-sm w-100 add-to-cart" data-name="Cold Brew">
-                                <i class="fas fa-plus me-1"></i> Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3 product-item" data-category="sicak">
-                    <div class="product-card h-100">
-                        <div class="card-img-wrapper">
-                            <span class="price-tag">45 ₺</span>
-                            <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                                class="card-img-top" alt="Türk Kahvesi">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Türk Kahvesi</h5>
-                            <p class="card-text text-muted small">Geleneksel lezzet, çifte kavrulmuş.</p>
-                            <button class="btn btn-custom btn-sm w-100 add-to-cart" data-name="Türk Kahvesi">
-                                <i class="fas fa-plus me-1"></i> Sepete Ekle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="hakkimizda" class="bg-dark text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h4 class="mb-3" style="font-family: 'Playfair Display', serif;">Lusso Coffee</h4>
-                    <p class="text-muted">Kahve tutkusunu sanata dönüştürdüğümüz mekanımıza hoş geldiniz. En iyi
-                        çekirdekler, en iyi anlar için.</p>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Çalışma Saatleri</h5>
-                    <ul class="list-unstyled text-muted">
-                        <li>Hafta İçi: 08:00 - 23:00</li>
-                        <li>Hafta Sonu: 09:00 - 00:00</li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3">İletişim</h5>
-                    <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i> Bağdat Caddesi No:12, İstanbul</p>
-                    <p class="text-muted"><i class="fas fa-phone me-2"></i> +90 212 555 00 00</p>
-                </div>
-            </div>
-            <hr class="border-secondary">
-            <div class="text-center text-muted">
-                <small>&copy; 2025 Lusso Coffee House. Laravel Project Design.</small>
-            </div>
-        </div>
-    </footer>
+    <?php include 'footer_template.php'; ?>
 
     <div class="fab-cart">
         <i class="fas fa-shopping-basket"></i>

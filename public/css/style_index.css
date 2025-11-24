@@ -160,3 +160,15 @@ h3,
     border-radius: 50%;
     line-height: 20px;
 }
+
+/* Footer Rengi Düzeltmeleri */
+footer.bg-dark.text-white {
+    color: white !important;
+}
+
+footer.bg-dark.text-white h5,
+footer.bg-dark.text-white p,
+footer.bg-dark.text-white li,
+footer.bg-dark.text-white i {
+    color: white !important;
+}
