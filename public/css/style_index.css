@@ -1,26 +1,44 @@
+/* --- GENEL AYARLAR (ROOT) --- */
+/* --- GENEL AYARLAR (ROOT) --- */
 :root {
     --primary-color: #6F4E37;
-    /* Kahve */
     --secondary-color: #C6A87C;
-    /* Krem/Altın */
     --dark-bg: #1a1a1a;
     --light-bg: #f9f9f9;
+}
+
+/* DÜZELTME BURADA: html ve body ayarları */
+html {
+    height: 100%;
+    overflow-y: auto;
+    /* Dikey kaydırmayı zorla aç */
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-bg);
     color: #333;
+    min-height: 100%;
+    /* İçerik azsa da sayfa tam boy olsun */
+    height: auto !important;
+    /* İçerik çoksa sayfa uzasın (Scroll açılsın) */
+    overflow-x: hidden;
+    /* Yatay kaymayı engelle */
 }
 
 h1,
 h2,
 h3,
-.navbar-brand {
+.navbar-brand,
+.brand-title {
     font-family: 'Playfair Display', serif;
 }
 
-/* Navbar Tasarımı */
+a {
+    text-decoration: none;
+}
+
+/* --- NAVBAR TASARIMI --- */
 .navbar {
     transition: all 0.4s;
     padding: 15px 0;
@@ -51,7 +69,18 @@ h3,
     width: 100%;
 }
 
-/* Hero Section */
+/* Navbar Profil Butonu Hover Efekti */
+.navbar .btn-outline-light:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+.navbar .btn-outline-light:hover i {
+    color: #000000 !important;
+}
+
+/* --- HERO SECTION (ANASAYFA) --- */
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
     background-size: cover;
@@ -65,7 +94,7 @@ h3,
     color: white;
 }
 
-/* Ürün Kartları */
+/* --- ÜRÜN KARTLARI --- */
 .product-card {
     border: none;
     border-radius: 15px;
@@ -109,7 +138,7 @@ h3,
     font-weight: bold;
 }
 
-/* Butonlar */
+/* --- BUTONLAR --- */
 .btn-custom {
     background-color: var(--primary-color);
     color: white;
@@ -125,7 +154,106 @@ h3,
     transform: scale(1.05);
 }
 
-/* Floating Cart Button */
+/* --- LOGIN & REGISTER SAYFALARI --- */
+/* Bu sınıfı Login ve Register body etiketine vereceğiz */
+body.bg-login-image {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.login-card .form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 12px;
+    font-size: 0.95rem;
+    /* Senin login kodundan alındı */
+}
+
+.login-card .form-control:focus {
+    background: #fff;
+    box-shadow: 0 0 0 3px #C6A87C;
+    /* var(--secondary-color) yerine direkt renk kodu, senin kodunla uyumlu */
+}
+
+.login-card .input-group-text {
+    background: #C6A87C;
+    color: white;
+    border: none;
+}
+
+.login-card a {
+    color: #C6A87C;
+}
+
+.login-card a:hover {
+    color: white;
+}
+
+.btn-login {
+    background-color: #6F4E37;
+    color: white;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #C6A87C;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --- PROFİL SAYFASI --- */
+/* --- PROFİL SAYFASI DÜZELTMESİ --- */
+body.profile-page {
+    background-color: #f8f9fa;
+    padding-top: 120px;
+    /* Header altına girmemesi için biraz daha artırdım */
+    padding-bottom: 50px;
+    /* En altta biraz boşluk kalsın */
+    height: auto !important;
+    /* Yüksekliği serbest bırak */
+    overflow-y: auto !important;
+    /* Kaydırmayı garanti et */
+}
+
+.profile-header {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+/* --- FOOTER & SEPET --- */
+footer.bg-dark.text-white,
+footer.bg-dark.text-white h5,
+footer.bg-dark.text-white p,
+footer.bg-dark.text-white li,
+footer.bg-dark.text-white i {
+    color: white !important;
+}
+
 .fab-cart {
     position: fixed;
     bottom: 30px;
@@ -161,14 +289,33 @@ h3,
     line-height: 20px;
 }
 
-/* Footer Rengi Düzeltmeleri */
-footer.bg-dark.text-white {
-    color: white !important;
+/* --- HEADER PROFIL BUTONU TAM DÜZELTME --- */
+
+/* 1. Mouse üzerine gelince (Hover) */
+.navbar .btn-outline-light:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
 }
 
-footer.bg-dark.text-white h5,
-footer.bg-dark.text-white p,
-footer.bg-dark.text-white li,
-footer.bg-dark.text-white i {
-    color: white !important;
+/* 2. Tıklayınca ve Menü Açıkken (Active / Show / Focus) */
+.navbar .btn-outline-light:active,
+.navbar .btn-outline-light:focus,
+.navbar .btn-outline-light.show {
+    background-color: #ffffff !important;
+    /* Arka plan beyaz */
+    color: #000000 !important;
+    /* Yazı SİYAH */
+    border-color: #ffffff !important;
+    /* Çerçeve beyaz */
+    box-shadow: none !important;
+    /* Mavi parlamayı kaldır */
+}
+
+/* İkon Rengini de Siyah Yap (Her durumda) */
+.navbar .btn-outline-light:hover i,
+.navbar .btn-outline-light:active i,
+.navbar .btn-outline-light:focus i,
+.navbar .btn-outline-light.show i {
+    color: #000000 !important;
 }

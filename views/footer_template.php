@@ -1,4 +1,4 @@
-<footer class="bg-dark text-white pt-5 pb-4">
+<footer id="hakkimizda" class="bg-dark text-white pt-5 pb-4">
     <div class="container text-md-left">
         <div class="row text-md-left">
             <!-- Marka Bilgisi -->

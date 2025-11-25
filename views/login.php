@@ -1,41 +1,40 @@
 <?php
 session_start();
 
-// 1. GÜNCEL DOSYA YOLU İLE DB BAĞLANTISINI DAHİL ET
-// views/login.php'den app/core/db.php'ye ulaşmak için yol: '../app/core/db.php'
-include '../app/core/db.php';
+// 1. Veritabanı Bağlantısı
+if (file_exists('../app/core/db.php')) {
+    require_once '../app/core/db.php';
+} else {
+    die("HATA: Veritabanı dosyası bulunamadı. Yol: ../app/core/db.php");
+}
 
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    // 2. GEÇİCİ KONTROL YERİNE GERÇEK VERİTABANI SORGUSU
-    
-    // Kullanıcıyı e-posta adresine göre bul
-    // $pdo değişkeni artık db.php'den geliyor
-    $stmt = $pdo->prepare("SELECT user_id, name, password FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
-
-    if ($user) {
-        // Şifre Kontrolü: Veritabanındaki HASH'lenmiş şifre ile girilen şifreyi karşılaştır
-        if (password_verify($password, $user['password'])) {
-            // Giriş Başarılı
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['user_name'] = $user['name'];
-            
-            // Anasayfaya yönlendir
-            header("Location: index.php");
-            exit;
-        } else {
-            // Şifre Hatalı
-            $error = "Hatalı e-posta veya şifre.";
-        }
+    if (empty($email) || empty($password)) {
+        $error = "Lütfen tüm alanları doldurun.";
     } else {
-        // Kullanıcı Bulunamadı
-        $error = "Hatalı e-posta veya şifre.";
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND is_active = 1");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            if ($password === $user['password']) {
+                $_SESSION['user_id'] = $user['id']; 
+                $_SESSION['user_name'] = $user['name'] . ' ' . $user['surname'];
+                $_SESSION['user_role'] = $user['role'];
+                $_SESSION['user_email'] = $user['email'];
+                header("Location: index.php"); 
+                exit;
+            } else {
+                $error = "Hatalı şifre girdiniz.";
+            }
+        } else {
+            $error = "Bu e-posta adresiyle kayıtlı (veya aktif) kullanıcı bulunamadı.";
+        }
     }
 }
 ?>
@@ -45,88 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giriş Yap - Lusso Coffee</title>
+    <title>Giriş Yap - OrderFlow</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="../public/css/style.css">
-
-    <style>
-        /* CSS Stilleri Buraya Taşınabilir VEYA style.css'te bırakılabilir */
-        /* Login sayfasına özel override stilleri */
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-card {
-            background-color: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            color: white;
-        }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            padding: 12px;
-            font-size: 0.95rem;
-        }
-        
-        .form-control:focus {
-            background: #fff;
-            box-shadow: 0 0 0 3px var(--secondary-color);
-        }
-
-        h2.brand-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--secondary-color); 
-        }
-
-        .btn-login {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px;
-            border-radius: 30px;
-            transition: all 0.3s;
-            border: none;
-            font-weight: 600;
-        }
-
-        .btn-login:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .input-group-text {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-        }
-        
-        a { color: var(--secondary-color); text-decoration: none; }
-        a:hover { color: white; }
-    </style>
+    <link rel="stylesheet" href="../public/css/style_index.css">
 </head>
-<body>
+<body class="bg-login-image">
 
-    <div class="login-card animate__animated animate__fadeInUp">
+    <div class="login-card">
         <div class="text-center mb-4">
-            <h2 class="brand-title mb-2"><i class="fas fa-coffee me-2"></i>Lusso</h2>
-            <p class="text-white-50">Sipariş Otomasyonu</p>
+            <h2 class="mb-2" style="font-family: 'Playfair Display', serif;">OrderFlow</h2>
+            <p class="text-white-50">Hoş Geldiniz</p>
         </div>
 
         <?php if(!empty($error)): ?>
@@ -135,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form action="" method="POST">
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
