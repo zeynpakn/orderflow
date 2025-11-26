@@ -22,16 +22,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            if ($password === $user['password']) {
-                $_SESSION['user_id'] = $user['id']; 
-                $_SESSION['user_name'] = $user['name'] . ' ' . $user['surname'];
-                $_SESSION['user_role'] = $user['role'];
-                $_SESSION['user_email'] = $user['email'];
-                header("Location: index.php"); 
-                exit;
-            } else {
-                $error = "Hatalı şifre girdiniz.";
-            }
+            // ... views/login.php içindeki yönlendirme kısmı ...
+
+if ($user) {
+    if ($password === $user['password']) {
+        // Session Başlat
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['name'] . ' ' . $user['surname'];
+        $_SESSION['user_role'] = $user['role']; // 'admin' veya 'user'
+        $_SESSION['user_email'] = $user['email'];
+
+        // DÜZELTME: ROLE GÖRE YÖNLENDİRME
+        if ($_SESSION['user_role'] == 'admin') {
+            // Adminler Admin Paneline gider
+            header("Location: admin_profile.php"); 
+        } else {
+            // Normal kullanıcılar kendi profiline gider
+            header("Location: profile.php");
+        }
+        exit;
+    } else {
+        $error = "Hatalı şifre girdiniz.";
+    }
+}
+// ...
         } else {
             $error = "Bu e-posta adresiyle kayıtlı (veya aktif) kullanıcı bulunamadı.";
         }

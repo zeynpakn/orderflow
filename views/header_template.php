@@ -15,6 +15,9 @@ if (session_status() === PHP_SESSION_NONE) {
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="index.php">Anasayfa</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.php#menu">Menü</a></li>
+                
+                <li class="nav-item"><a class="nav-link text-warning" href="reviews.php"><i class="fas fa-comments me-1"></i>Müşteri Yorumları</a></li>
+                
                 <li class="nav-item"><a class="nav-link" href="index.php#hakkimizda">Hakkımızda</a></li>
                 
                 <?php if (isset($_SESSION['user_id'])): ?>

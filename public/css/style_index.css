@@ -224,7 +224,6 @@ body.bg-login-image {
 }
 
 /* --- PROFİL SAYFASI --- */
-/* --- PROFİL SAYFASI DÜZELTMESİ --- */
 body.profile-page {
     background-color: #f8f9fa;
     padding-top: 120px;
@@ -243,6 +242,14 @@ body.profile-page {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     padding: 30px;
     margin-bottom: 30px;
+}
+
+.profile-page footer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /* --- FOOTER & SEPET --- */
@@ -318,4 +325,215 @@ footer.bg-dark.text-white i {
 .navbar .btn-outline-light:focus i,
 .navbar .btn-outline-light.show i {
     color: #000000 !important;
+}
+
+/* --- MODERN REVIEWS COFFEE THEME --- */
+
+/* Sayfa Arka Planı (Krem) */
+body.reviews-page {
+    background-color: #fdfbf7;
+    color: #4b3832;
+    padding-top: 100px;
+}
+
+/* Başlık ve Alt Yazı */
+.reviews-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #6F4E37;
+}
+
+.reviews-header p {
+    color: #a67c52;
+    font-weight: 500;
+}
+
+/* Sol Panel: İstatistik ve Form Kartı */
+.review-sidebar-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(111, 78, 55, 0.1);
+    border: 1px solid rgba(166, 124, 82, 0.15);
+    position: sticky;
+    top: 110px;
+}
+
+/* İstatistik Puanı */
+.rating-box {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed #eaddcf;
+    margin-bottom: 20px;
+}
+
+.rating-box .score {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #6F4E37;
+    line-height: 1;
+}
+
+.rating-box .stars {
+    color: #d4a017;
+    /* Altın Sarısı */
+    font-size: 1.4rem;
+    margin: 5px 0;
+}
+
+.rating-box .count {
+    font-size: 0.85rem;
+    color: #8c7b75;
+    background: #f4ece7;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Form Alanı */
+.review-form-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #4b3832;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.custom-select,
+.custom-textarea {
+    background-color: #fcf9f6;
+    border: 1px solid #e6ddd6;
+    border-radius: 10px;
+    padding: 12px;
+    color: #5d4037;
+}
+
+.custom-select:focus,
+.custom-textarea:focus {
+    background-color: #fff;
+    border-color: #a67c52;
+    box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.1);
+    outline: none;
+}
+
+/* Özel Kahve Butonu */
+.btn-coffee {
+    background: linear-gradient(135deg, #8d6e63, #5d4037);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-coffee:hover {
+    background: linear-gradient(135deg, #795548, #4e342e);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3);
+    color: white;
+}
+
+/* Yorum Kartları (Sağ Panel) */
+.review-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-left: 5px solid #a67c52;
+    /* Sol kenar çizgisi */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Profil Alanı */
+.reviewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    background: #f4ece7;
+    color: #6F4E37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info h6 {
+    margin: 0;
+    font-weight: 700;
+    color: #4b3832;
+}
+
+.info span {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.stars-small {
+    color: #d4a017;
+    font-size: 0.9rem;
+    background: #fffbf0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #f0e6d2;
+}
+
+.comment-text {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Sadece profil sayfası için eklenen/override edilen stiller */
+body.profile-page {
+    background-color: #f4ece7;
+    padding-top: 100px;
+}
+
+.profile-header {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(238, 187, 153, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+/* Tablo rengini değiştirdim, daha uyumlu olsun */
+.table-light {
+    background-color: #F5F1E9 !important;
+    color: #6F4E37 !important;
+}
+
+.bg-secondary {
+    background-color: #A67B5B !important;
+    /* Kahve tonu */
+}
+
+body.profile-page {
+    min-height: 100vh;
+    /* Sayfa yüksekliği = ekran yüksekliği */
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0 !important;
+}
+
+.container {
+    flex: 10;
+    /* İçerik yayılsın, footer aşağı itilsin */
 }
