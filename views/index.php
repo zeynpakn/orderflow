@@ -22,7 +22,7 @@
 
     <?php 
     // Header dosyasını buraya dahil ediyoruz
-    include 'header_template.php'; 
+    include 'header_template.php';  // views/'den root'a: ../ ekle
     ?>
 
     <header class="hero">
@@ -35,7 +35,10 @@
 
     <?php include '../app/controllers/products_get.php'  ?>
 
-    <?php include 'footer_template.php'; ?>
+    <!-- Modal'ı buradan include et (views/'den modals/'e: doğru path) -->
+    <?php include 'modals/cart-modal.php'; ?>
+
+    <?php include 'footer_template.php';  // views/'den root'a: ../ ekle ?>
 
     <div class="fab-cart">
         <i class="fas fa-shopping-basket"></i>
@@ -57,53 +60,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
+    <!-- JS'i ayrı dosyaya taşıdık -->
+    <script src="../public/js/script.js"></script>
 
-            // 1. Sticky Navbar Efekti
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 50) {
-                    $('.navbar').addClass('scrolled');
-                } else {
-                    $('.navbar').removeClass('scrolled');
-                }
-            });
-
-            // 2. Kategori Filtreleme (jQuery)
-            $('.filter-btn').click(function () {
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
-
-                var value = $(this).attr('data-filter');
-
-                if (value == "all") {
-                    $('.product-item').fadeIn('1000');
-                } else {
-                    $('.product-item').not('[data-category="' + value + '"]').hide('3000');
-                    $('.product-item').filter('[data-category="' + value + '"]').show('3000');
-                }
-            });
-
-            // 3. Sepete Ekleme ve Animasyon
-            let cartCount = 0;
-            $('.add-to-cart').click(function () {
-                // Sayacı Artır
-                cartCount++;
-                $('#cart-count').text(cartCount);
-
-                // Toast Bildirimi Göster
-                var toast = new bootstrap.Toast(document.getElementById('cartToast'));
-                $('.toast-body').text($(this).data('name') + " sepete eklendi.");
-                toast.show();
-
-                // Sepet İkonunu Sallama Efekti
-                $('.fab-cart').css('transform', 'scale(1.2)');
-                setTimeout(function () {
-                    $('.fab-cart').css('transform', 'scale(1)');
-                }, 200);
-            });
-        });
-    </script>
 </body>
 
 </html>

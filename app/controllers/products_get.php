@@ -37,7 +37,7 @@ function renderProductCard($product) {
             echo '<div class="card-body text-center">';
                 echo '<h5 class="card-title fw-bold">' . $product['name'] . '</h5>';
                 echo '<p class="card-text text-muted small">' . $product['description'] . '</p>';
-                echo '<button class="btn btn-custom btn-sm w-100 add-to-cart" data-product-id="' . $product['id'] . '" data-name="' . $product['name'] . '">';
+                echo '<button class="btn btn-custom btn-sm w-100 add-to-cart" data-id="' . $product['id'] . '" data-name="' . $product['name'] . '" data-price="' . $product['price'] . '">';
                     echo '<i class="fas fa-plus me-1"></i> Sepete Ekle';
                 echo '</button>';
             echo '</div>';
