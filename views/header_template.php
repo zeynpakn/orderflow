@@ -2,6 +2,8 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+// Admin mi kontrolü yapıldı
+$isAdmin = isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 ?>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: #1a1a1a;">
     <div class="container">
@@ -27,7 +29,12 @@ if (session_status() === PHP_SESSION_NONE) {
                             Merhaba, <?php echo explode(" ", $_SESSION['user_name'])[0]; ?> 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="profile.php"><i class="fas fa-id-card me-2"></i>Profilim</a></li>
+                            <li>
+                                <a class="dropdown-item" href="profile.php">
+                                    <i class="fas fa-<?php echo $isAdmin ? 'tools' : 'id-card'; ?> me-2"></i>
+                                    <?php echo $isAdmin ? 'Yönetici Paneli' : 'Profilim'; ?>
+                                </a>
+                            </li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
                         </ul>

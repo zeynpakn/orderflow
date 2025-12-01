@@ -537,3 +537,87 @@ body.profile-page {
     flex: 10;
     /* İçerik yayılsın, footer aşağı itilsin */
 }
+
+/* ------------------------------------------- */
+/* --- YÖNETİCİ PANELİ (ADMIN DASHBOARD) --- */
+/* ------------------------------------------- */
+
+/* Statistics Cards (İstatistik Kartları) - Görüntüdeki Kart Stili */
+/* --- GENEL AYARLAR (ROOT) --- */
+/* ... Mevcut tüm CSS içeriğiniz buraya kadar devam ediyor ... */
+
+/* ------------------------------------------- */
+/* --- YÖNETİCİ PANELİ (ADMIN DASHBOARD) --- */
+/* ------------------------------------------- */
+
+/* Statistics Cards (İstatistik Kartları) */
+.stat-card {
+    background-color: #ffffff;
+    /* Varsayılan sarımsı sol çizgi */
+    border-left: 5px solid #E9B200;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+/* İkinci kart için özel sol çizgi rengi (Teslim Edilen - Koyu Kahve) */
+.stat-card-primary {
+    border-left-color: var(--primary-color) !important;
+    /* #6F4E37 */
+}
+
+/* Üçüncü kart için özel sol çizgi rengi (Toplam Sipariş - Espresso) */
+.stat-card-dark {
+    border-left-color: #4B3621 !important;
+}
+
+/* Card surrounding the table */
+.admin-card {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header (Order List) - Kahverengi Başlık */
+.table-header-coffee {
+    background-color: #6F4E37 !important;
+    /* Koyu Kahve (Primary) */
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Status Update Button (in table) */
+.btn-status-update {
+    background-color: #6F4E37;
+    border: none;
+    color: white;
+}
+
+.btn-status-update:hover {
+    background-color: #7e5f3f;
+}
+
+/* Admin Tabs (Sekme Stilleri) */
+.nav-tabs {
+    border-bottom: 2px solid var(--secondary-color);
+    /* #A67B5B */
+    /* Gerekirse üstten boşluk ekle, ancak profile.php'de padding var */
+}
+
+.nav-tabs .nav-link {
+    color: var(--secondary-color) !important;
+    border: none;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color) !important;
+    border-bottom: 3px solid var(--primary-color) !important;
+    background-color: transparent !important;
+    border-color: transparent transparent var(--primary-color) transparent !important;
+}

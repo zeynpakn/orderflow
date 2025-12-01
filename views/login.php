@@ -31,15 +31,7 @@ if ($user) {
         $_SESSION['user_name'] = $user['name'] . ' ' . $user['surname'];
         $_SESSION['user_role'] = $user['role']; // 'admin' veya 'user'
         $_SESSION['user_email'] = $user['email'];
-
-        // DÜZELTME: ROLE GÖRE YÖNLENDİRME
-        if ($_SESSION['user_role'] == 'admin') {
-            // Adminler Admin Paneline gider
-            header("Location: admin_profile.php"); 
-        } else {
-            // Normal kullanıcılar kendi profiline gider
-            header("Location: profile.php");
-        }
+        header("Location: profile.php"); 
         exit;
     } else {
         $error = "Hatalı şifre girdiniz.";
