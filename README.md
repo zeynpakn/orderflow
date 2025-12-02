@@ -4,7 +4,7 @@ OrderFlow, çok katlı kafelerde hem müşterilerin sipariş sürecini kolaylaş
 
 Tamamen PHP ile geliştirilmiş olup, MySQL veritabanı üzerinde çalışır. Arayüzü latte–coffee temalı, sade ve mobil uyumlu olacak şekilde tasarlanmıştır.
 
----
+<br>
 
 ## 🎯 **Projenin Amacı**
 
@@ -18,7 +18,7 @@ Geleneksel kafe işletmelerinde sipariş süreci çoğu zaman iş yükünü art�
 
 sağlayan uçtan uca bir çözüm sunar.
 
----
+<br> 
 
 ## 👥 **Kimler İçin Tasarlandı?**
 
@@ -41,7 +41,7 @@ Kayıt olan kullanıcılar ise ek olarak:
 
 Kayıt olmayanlar sipariş verebilir ancak geçmişe erişemez — bu da sistemin esnekliğini artırır.
 
----
+<br>
 
 ### 🛠️ **Yönetici (Admin) Tarafından Kullanımı**
 
@@ -58,7 +58,8 @@ Yöneticiler:
 
 Bu yapı sayesinde kafe personeli, sipariş alım sürecini sıfır iletişim ile yönetebilir; sadece panel üzerinden sipariş durumlarını güncellemesi yeterlidir.
 
----
+
+<br>
 
 ## ⚙️ **Kullanılan Teknolojiler**
 
@@ -82,7 +83,7 @@ Bu yapı sayesinde kafe personeli, sipariş alım sürecini sıfır iletişim il
 * Latte–coffee UI teması
 * Responsive tasarım
 
----
+<br>
 
 ## 🗄️ **Veritabanı Yapısı**
 
@@ -99,7 +100,7 @@ Aşağıdaki tablolar kullanılmaktadır:
 > Veritabanı örneği repoya `cafe_db.sql` şeklinde eklenmiştir.
 > Projeyi kendinizde de çalıştırıp görmek isterseniz bu kodu kopyalayıp gerekli yere yapıştırmanız yeterli olacaktır.
 
----
+<br>
 
 ## 📂 **Proje Yapısı**
 
@@ -143,11 +144,13 @@ orderflow/
 │   ├── reviews.php                # Misafir & müşteri yorum sayfası
 │   └── submit_order_review.php    # Sipariş bazlı gizli değerlendirme
 │
+├── cafe_db.sql                    # Database bağlantısı için kullandıktan sonra dosyayı silebilirsiniz
 ├── .gitignore
 └── README.md
 ```
 
----
+
+<br>
 
 ## 🔧 **Kurulum**
 
@@ -187,7 +190,7 @@ $local_db_pass = '';
 http://localhost/orderflow/views/index.php
 ```
 
----
+<br>
 
 ## 🧩 **Neden OrderFlow?**
 
@@ -198,11 +201,9 @@ http://localhost/orderflow/views/index.php
 * Yorum ve değerlendirmeler, işletmenin kendini geliştirmesine olanak tanır.
 * Tasarım olarak modern, sıcak, profesyonel bir kahve teması sunar.
 
----
+<br>
 
 ## 👥 **Geliştiriciler**
 
 * **[Hatice Kübra Ülke](https://github.com/hkubrau)**
 * **[Zeynep Akın](https://github.com/zeynpakn)**
-
----
