@@ -86,7 +86,7 @@ INSERT INTO categories (name) VALUES
 -- Insert Products
 INSERT INTO products (category_id, name, price, description, image) VALUES 
 (1, 'Türk Kahvesi', 40.00, 'Geleneksel lezzet, çifte kavrulmuş.', 'turk_kahvesi.jpg'),
-(1, 'Caramel Latte', 65.00, 'Espresso, buharlanmış süt ve karamel sosu.', 'latte.jpg'),
+(2, 'Caramel Latte', 65.00, 'Espresso, buharlanmış süt ve karamel sosu.', 'latte.jpg'),
 (2, 'Cold Brew', 75.00, '12 saat demlenmiş soğuk kahve.', 'cold_brew.jpg'),
 (3, 'San Sebastian', 120.00, 'Belçika çikolatalı sos eşliğinde.', 'san_sebastian.jpg');
 
@@ -96,13 +96,17 @@ INSERT INTO users (name, surname, email, password, role) VALUES
 ('Hatice Kübra', 'Ülke', 'hk@kafe.com', '4242', 'admin'),
 ('Merve', 'Özdoğru', 'mo@kafe.com', '0000', 'user');
 
-
+-- Anonymous user for guest orders
+-- This allows storing orders in the database even when the user is not logged in.
+SET SQL_MODE='';
+INSERT INTO users (id, name, surname, email, password, role)
+VALUES (0, 'Anonymous', '', 'anonymous@kafe.com', '0000', 'user');
 
 
 -- --------------------------------------------------------
--- 7. CAFE REVIEWS TABLE  (GENEL KAFE YORUMLARI)
--- Bu tablo kullanıcıların genel kafe deneyimi için yaptığı yorumları tutar.
--- User silinirse SET NULL olur (yorum korunur).
+-- 7. CAFE REVIEWS TABLE (GENERAL CAFE FEEDBACK)
+-- This table stores general feedback/comments about the cafe.
+-- If a user is deleted, user_id becomes NULL (review remains).
 -- --------------------------------------------------------
 CREATE TABLE cafe_reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -119,13 +123,11 @@ VALUES
 (1, 5, 'Çok güzel bir kafe, tekrar gelicem.');
 
 
-
-
 -- --------------------------------------------------------
--- 8. ORDER REVIEWS TABLE (SİPARİŞ BAZLI GİZLİ DEĞERLENDİRME)
--- Sipariş teslim edildikten sonra verilen hız/tat/servis değerlendirmeleri.
--- Order silinirse review da silinir (mantıklı).
--- User silinirse SET NULL olur (yorum korunur).
+-- 8. ORDER REVIEWS TABLE (ORDER-BASED PRIVATE EVALUATION)
+-- This table stores rating and feedback given after an order is delivered.
+-- If an order is deleted, its reviews are also deleted.
+-- If a user is deleted, user_id becomes NULL (review remains).
 -- --------------------------------------------------------
 CREATE TABLE order_reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -142,4 +144,4 @@ CREATE TABLE order_reviews (
 -- Example data
 INSERT INTO order_reviews (user_id, order_id, rating, comment)
 VALUES
-(1, 1, 3, 'Kahve oldukça lettetliydi. Ellerinize sağlık <3');
+(1, 1, 3, 'Kahve oldukça lezzetliydi. Ellerinize sağlık <3');
