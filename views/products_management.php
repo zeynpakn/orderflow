@@ -99,7 +99,7 @@ foreach ($products as $product) {
 </head>
 <body class="profile-page d-flex flex-column min-vh-100">
 
-    <?php include 'header_template.php'; ?>
+    <?php include 'modals/header_template.php'; ?>
 
     <div class="container flex-grow-1 my-5" style="padding-top: 50px;">
         
@@ -187,54 +187,7 @@ foreach ($products as $product) {
         </div>
 
     </div>
-    
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #6F4E37; color: white;">
-            <h5 class="modal-title" id="addProductModalLabel"><i class="fas fa-mug-hot me-2"></i> Yeni Ürün Oluştur</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form method="POST">
-              <div class="modal-body">
-                
-                <div class="mb-3">
-                  <label for="productName" class="form-label">Ürün Adı</label>
-                  <input type="text" class="form-control" id="productName" name="name" required>
-                </div>
-                
-                <div class="mb-3">
-                  <label for="productCategory" class="form-label">Kategori</label>
-                  <select class="form-select" id="productCategory" name="category_id" required>
-                    <option value="">Kategori Seçin</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?php echo $category['id']; ?>"><?php echo htmlspecialchars($category['name']); ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
 
-                <div class="mb-3">
-                  <label for="productPrice" class="form-label">Fiyat (₺)</label>
-                  <input type="number" step="0.01" min="0.01" class="form-control" id="productPrice" name="new_price" required>
-                </div>
-
-                <div class="mb-3">
-                  <label for="productDescription" class="form-label">Açıklama</label>
-                  <textarea class="form-control" id="productDescription" name="description" rows="3"></textarea>
-                  <small class="text-muted">Görsel otomatik olarak **<?php echo $default_image_file; ?>** atanacaktır.</small>
-                </div>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                <button type="submit" name="add_new_product" class="btn btn-primary" style="background-color: #6F4E37; border-color: #6F4E37;">
-                    <i class="fas fa-plus-circle me-1"></i> Ürünü Ekle
-                </button>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
     <?php include 'footer_template.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

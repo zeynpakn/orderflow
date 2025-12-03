@@ -621,3 +621,15 @@ body.profile-page {
     background-color: transparent !important;
     border-color: transparent transparent var(--primary-color) transparent !important;
 }
+
+.toast {
+    /*sepetimizi bloklamasın diye yukarı taşıdık*/
+    position: fixed !important;
+    right: 35px !important;
+    /* Sepet ikonunun sağ çizgisine hizalar */
+    bottom: 110px !important;
+    /* Sepetin tam üstüne oturtur */
+    z-index: 99999 !important;
+    width: 320px !important;
+    /* Genişliği dengeler */
+}

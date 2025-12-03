@@ -22,7 +22,7 @@
 
     <?php 
     // Header dosyasını buraya dahil ediyoruz
-    include 'header_template.php';  // views/'den root'a: ../ ekle
+    include 'modals/header_template.php';  // views/'den root'a: ../ ekle
     ?>
 
     <header class="hero">
@@ -38,7 +38,7 @@
     <!-- Modal'ı buradan include et (views/'den modals/'e: doğru path) -->
     <?php include 'modals/cart-modal.php'; ?>
 
-    <?php include 'footer_template.php';  // views/'den root'a: ../ ekle ?>
+    <?php include 'modals/footer_template.php';  // views/'den root'a: ../ ekle ?>
 
     <div class="fab-cart">
         <i class="fas fa-shopping-basket"></i>
