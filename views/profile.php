@@ -46,12 +46,42 @@ if ($isAdmin) {
         }
     }
 
-    // TÜM SİPARİŞLERİ ÇEKME
+    // YENİ EK: FİLTRELEME MANTIĞI
+    $filter_type = $_GET['filter'] ?? 'all'; // URL'den filter parametresini al, yoksa 'all' varsay
+    $today = date('Y-m-d');
+    
+    $sql_where = "";
+    
+    if ($filter_type === 'waiting') {
+        // Bekleyen Siparişler: Hazırlanıyor veya Hazır durumunda olanlar (bugün)
+        $sql_where = "WHERE (o.status = 'hazırlanıyor' OR o.status = 'hazır') AND DATE(o.created_at) = '$today'";
+    } elseif ($filter_type === 'delivered_today') {
+        // Bugün Teslim Edilenler
+        $sql_where = "WHERE o.status = 'teslim edildi' AND DATE(o.created_at) = '$today'";
+    } elseif ($filter_type === 'total_today') {
+        // Bugün Verilen Tüm Siparişler
+        $sql_where = "WHERE DATE(o.created_at) = '$today'";
+    }
+    // 'all' durumunda filtre yok (tüm siparişler)
+
+    // TÜM SİPARİŞLERİ ÇEKME (Filtre uygulanmış hali)
     $sql = "SELECT o.*, u.name, u.surname, u.email 
             FROM orders o 
             LEFT JOIN users u ON o.user_id = u.id 
+            " . $sql_where . "
             ORDER BY o.created_at DESC";
     $orders_admin = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+    // İSTATİSTİK KARTLARI İÇİN VERİLERİ ÇEK (Filtre uygulanmadan, bugünün istatistiklerini göstermek için)
+    // Bu sorgu filtreden bağımsız çalışmalı, aksi takdirde kartlardaki sayılar yanlış olur.
+    $sql_stats = "SELECT id, status, created_at FROM orders WHERE DATE(created_at) = '$today'";
+    $orders_today_stats = $pdo->query($sql_stats)->fetchAll(PDO::FETCH_ASSOC);
+
+    $waiting_orders_count = count(array_filter($orders_today_stats, function($o) { return $o['status'] === 'hazırlanıyor' || $o['status'] === 'hazır'; }));
+    $delivered_today_count = count(array_filter($orders_today_stats, function($o) { return $o['status'] === 'teslim edildi'; }));
+    $total_today_count = count($orders_today_stats);
+    $total_all_count = $pdo->query("SELECT COUNT(id) FROM orders")->fetchColumn();
+
 
 } else {
     // NORMAL KULLANICI SİPARİŞLERİNİ ÇEK
@@ -73,6 +103,16 @@ if ($isAdmin) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../public/css/style_index.css">
+    
+    <style>
+        .table-title {
+            color: #4B3621;
+            border-bottom: 2px solid #6F4E37;
+            padding-bottom: 10px;
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body class="profile-page d-flex flex-column min-vh-100">
     
@@ -105,32 +145,51 @@ if ($isAdmin) {
             
             <div class="row mb-5 g-4">
                 <div class="col-md-4">
-                    <div class="stat-card">
-                        <p class="text-muted mb-1">Toplam Bekleyen Sipariş</p>
-                        <h3 class="fw-bold" style="color: #E9B200;"><i class="fas fa-hourglass-half me-2"></i>
-                            <?php echo count(array_filter($orders_admin, function($o) { return $o['status'] === 'hazırlanıyor'; })); ?>
-                        </h3>
-                    </div>
+                    <a href="profile.php?filter=waiting" class="text-decoration-none">
+                        <div class="stat-card stat-card-clickable">
+                            <p class="text-muted mb-1">Toplam Bekleyen Sipariş (Bugün)</p>
+                            <h3 class="fw-bold" style="color: #E9B200;"><i class="fas fa-hourglass-half me-2"></i>
+                                <?php echo $waiting_orders_count; ?>
+                            </h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-md-4">
-                    <div class="stat-card stat-card-primary"> 
-                        <p class="text-muted mb-1">Teslim Edilen (Bugün)</p>
-                        <h3 class="fw-bold text-success"><i class="fas fa-check-circle me-2"></i>
-                            <?php echo count(array_filter($orders_admin, function($o) { return $o['status'] === 'teslim edildi' && date('Y-m-d', strtotime($o['created_at'])) === date('Y-m-d'); })); ?>
-                        </h3>
-                    </div>
+                    <a href="profile.php?filter=delivered_today" class="text-decoration-none">
+                        <div class="stat-card stat-card-primary stat-card-clickable"> 
+                            <p class="text-muted mb-1">Teslim Edilen (Bugün)</p>
+                            <h3 class="fw-bold text-success"><i class="fas fa-check-circle me-2"></i>
+                                <?php echo $delivered_today_count; ?>
+                            </h3>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-md-4">
-                     <div class="stat-card stat-card-dark">
-                        <p class="text-muted mb-1">Toplam Sipariş</p>
-                        <h3 class="fw-bold" style="color: #A67B5B;"><i class="fas fa-coffee me-2"></i>
-                            <?php echo count($orders_admin); ?>
-                        </h3>
-                    </div>
+                     <a href="profile.php?filter=total_today" class="text-decoration-none">
+                        <div class="stat-card stat-card-dark stat-card-clickable">
+                            <p class="text-muted mb-1">Toplam Sipariş (Bugün)</p>
+                            <h3 class="fw-bold" style="color: #A67B5B;"><i class="fas fa-coffee me-2"></i>
+                                <?php echo $total_today_count; ?>
+                            </h3>
+                        </div>
+                    </a>
                 </div>
             </div>
             
-            <div class="card admin-card border-0 shadow-sm">
+            <?php 
+                $table_title = "Tüm Siparişler";
+                if ($filter_type === 'waiting') $table_title = "Bugünün Bekleyen Siparişleri";
+                elseif ($filter_type === 'delivered_today') $table_title = "Bugün Teslim Edilen Siparişler";
+                elseif ($filter_type === 'total_today') $table_title = "Bugün Verilen Tüm Siparişler";
+            ?>
+            <h4 class="table-title d-flex justify-content-between align-items-center">
+                <?php echo $table_title; ?>
+                <?php if($filter_type != 'all'): ?>
+                    <a href="profile.php" class="btn btn-sm btn-outline-secondary">Tümünü Göster</a>
+                <?php endif; ?>
+            </h4>
+
+            <div class="card admin-card border-0 shadow-sm mt-4">
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover mb-0 align-middle">
@@ -147,6 +206,12 @@ if ($isAdmin) {
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if (empty($orders_admin)): ?>
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted p-4">Bu kritere uygun sipariş bulunmamaktadır.</td>
+                                    </tr>
+                                <?php endif; ?>
+
                                 <?php foreach ($orders_admin as $order): 
                                     $items = getOrderItems($pdo, $order['id']); 
                                     $itemsString = implode(', ', array_map(function($item) {

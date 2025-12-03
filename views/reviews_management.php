@@ -10,6 +10,32 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
 
 $msg = "";
 
+// -----------------------------------------------------------
+// YENİ EK: YORUM SİLME İŞLEMİ
+// -----------------------------------------------------------
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['review_id'])) {
+    $review_id = (int)$_GET['review_id'];
+    
+    // Güvenlik: cafe_reviews tablosundan sil
+    $stmt = $pdo->prepare("DELETE FROM cafe_reviews WHERE id = ?");
+    
+    if ($stmt->execute([$review_id])) {
+        // Silme başarılı, sayfayı mesajla yeniden yönlendir
+        $msg = '<div class="alert alert-success alert-dismissible fade show">Yorum #' . $review_id . ' başarıyla silindi.</div>';
+        // URL'deki silme parametrelerini temizleyerek tekrar yönlendir
+        header("Location: reviews_management.php?msg=" . urlencode(strip_tags($msg)));
+        exit;
+    } else {
+        $msg = '<div class="alert alert-danger">Silme işlemi sırasında hata oluştu.</div>';
+    }
+}
+
+// URL'den gelen başarılı mesajı göster
+if (isset($_GET['msg'])) {
+    $msg = urldecode($_GET['msg']);
+}
+
+
 // 1. KAFE GENEL YORUMLARINI ÇEKME
 $cafeReviewsSql = "SELECT r.*, u.name, u.surname FROM cafe_reviews r 
                    JOIN users u ON r.user_id = u.id 
@@ -118,6 +144,7 @@ $orderReviews = $pdo->query($orderReviewsSql)->fetchAll(PDO::FETCH_ASSOC);
                                     <th>Puan</th>
                                     <th>Yorum</th>
                                     <th>Tarih</th>
+                                    <th>İşlem</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,6 +156,13 @@ $orderReviews = $pdo->query($orderReviewsSql)->fetchAll(PDO::FETCH_ASSOC);
                                     </td>
                                     <td><?php echo nl2br(htmlspecialchars($review['comment'])); ?></td>
                                     <td class="small text-muted"><?php echo date('d.m.Y H:i', strtotime($review['created_at'])); ?></td>
+                                    <td>
+                                        <a href="?action=delete&review_id=<?php echo $review['id']; ?>" 
+                                           class="btn btn-sm btn-danger" 
+                                           onclick="return confirm('Bu yorumu silmek istediğinizden emin misiniz?');">
+                                            <i class="fas fa-trash-alt"></i> Sil
+                                        </a>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
